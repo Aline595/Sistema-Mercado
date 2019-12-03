@@ -1,0 +1,226 @@
+package teste;
+
+import dao.ClienteDAO;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.EventQueue;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import modelo.Cliente;
+
+public class CrudCliente extends JFrame implements ActionListener {
+    private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField tf_nome;
+	private JTextField tf_email;
+	private JTextField tf_endereco;
+	private JTextField tf_datanasc;
+	private JTextField tf_ID;
+        private JTextField tf_cpf;
+	private JButton btnInserir, btnLimpar,
+		btnVoltar, btnAvancar, btnAtualizar, btnRemover;
+	private ClienteDAO dao;
+	private List<Cliente> lista;
+	private int cursor;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CrudCliente frame = new CrudCliente();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Criar o frame
+	 */
+	public CrudCliente() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 490, 335);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNome = new JLabel("Nome:");
+		lblNome.setBounds(25, 41, 75, 14);
+		contentPane.add(lblNome);
+		
+		JLabel lblEmail = new JLabel("E-mail:");
+		lblEmail.setBounds(25, 82, 104, 14);
+		contentPane.add(lblEmail);
+		
+		JLabel lblEndereo = new JLabel("Endere\u00E7o:");
+		lblEndereo.setBounds(25, 118, 122, 14);
+		contentPane.add(lblEndereo);
+		
+		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
+		lblDataDeNascimento.setBounds(25, 150, 151, 14);
+		contentPane.add(lblDataDeNascimento);
+                
+                JLabel lblCPF = new JLabel("CPF:");
+		lblCPF.setBounds(25, 182, 180, 14);
+		contentPane.add(lblCPF);
+		
+		tf_nome = new JTextField();
+		tf_nome.setBounds(184, 39, 240, 20);
+		contentPane.add(tf_nome);
+		tf_nome.setColumns(10);
+		
+		tf_email = new JTextField();
+		tf_email.setBounds(184, 80, 240, 20);
+		contentPane.add(tf_email);
+		tf_email.setColumns(10);
+		
+		tf_endereco = new JTextField();
+		tf_endereco.setBounds(184, 116, 240, 20);
+		contentPane.add(tf_endereco);
+		tf_endereco.setColumns(10);
+		
+		tf_datanasc = new JTextField();
+		tf_datanasc.setBounds(184, 148, 240, 20);
+		contentPane.add(tf_datanasc);
+		tf_datanasc.setColumns(10);
+                
+                tf_cpf = new JTextField();
+		tf_cpf.setBounds(184, 180, 240, 20);
+		contentPane.add(tf_cpf);
+		tf_cpf.setColumns(10);
+		
+		btnInserir = new JButton("Inserir");
+		btnInserir.setBounds(118, 210, 94, 25);
+		btnInserir.addActionListener(this);
+		contentPane.add(btnInserir);
+		
+		btnLimpar = new JButton("Limpar");
+		btnLimpar.setBounds(12, 210, 86, 25);
+		btnLimpar.addActionListener(this);
+		contentPane.add(btnLimpar);
+		
+		btnVoltar = new JButton("<<");
+		btnVoltar.setBounds(116, 246, 96, 25);
+		btnVoltar.addActionListener(this);
+		contentPane.add(btnVoltar);
+		
+		btnAvancar = new JButton(">>");
+		btnAvancar.setBounds(233, 247, 105, 23);
+		btnAvancar.addActionListener(this);
+		contentPane.add(btnAvancar);
+		
+		btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.setBounds(234, 210, 104, 25);
+		btnAtualizar.addActionListener(this);
+		contentPane.add(btnAtualizar);
+		
+		
+		btnRemover = new JButton("Remover");
+		btnRemover.setBounds(361, 210, 104, 25);
+		btnRemover.addActionListener(this);
+		contentPane.add(btnRemover);
+		
+		JLabel lblId = new JLabel("ID:");
+		lblId.setBounds(31, 12, 69, 15);
+		contentPane.add(lblId);
+		
+		tf_ID = new JTextField();
+		tf_ID.setEditable(false);
+		tf_ID.setBounds(76, 10, 114, 19);
+		contentPane.add(tf_ID);
+		tf_ID.setColumns(10);
+		
+		dao = new ClienteDAO();
+		
+		lista = (ArrayList<Cliente>)dao.getListar();
+		cursor = 0;
+		carregaAgenda();
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnLimpar)
+		{	limparTela();
+		}
+		else if(e.getSource() == btnInserir)
+		{	dao.adiciona(new Cliente(tf_nome.getText(),
+					tf_email.getText(), tf_endereco.getText(),
+					tf_datanasc.getText(), tf_cpf.getText() /*,-1L*/));
+			JOptionPane.showMessageDialog(null, "Inserido com sucesso!");
+			lista = (ArrayList<Cliente>)dao.getListar();
+			cursor = lista.size()-1;
+			carregaAgenda();
+		}
+		else if(e.getSource() == btnAtualizar)
+		{	if(janelaConfirmacao("Atualização")) {
+				dao.altera(new Cliente(tf_nome.getText(),
+						tf_email.getText(), tf_endereco.getText(),
+						tf_datanasc.getText(), tf_cpf.getText()/*, Long.parseLong(tf_ID.getText())*/));
+			JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+				lista = (ArrayList<Cliente>)dao.getListar();
+				carregaAgenda();
+			}
+		}
+		else if(e.getSource() == btnVoltar)
+		{	if(cursor > 0) cursor--;
+			carregaAgenda();
+		}
+		else if(e.getSource() == btnAvancar)
+		{	if(cursor < lista.size()) cursor++;
+			carregaAgenda();
+		}
+		else if(e.getSource() == btnRemover)
+		{	if(janelaConfirmacao("Exclusão")) {
+				dao.remove(Integer.parseInt(tf_ID.getText()));
+				lista = (ArrayList<Cliente>)dao.getListar();
+				if(cursor > 0) cursor--;
+				carregaAgenda();
+			}
+		}
+		
+	}
+	
+	private boolean janelaConfirmacao(String evento) {
+		Object[] options = {"Confirmar", "Cancelar"};
+	    int escolha = JOptionPane.showOptionDialog(null,
+	    		"Confirma a " + evento + "?", "Agenda",
+	          JOptionPane.YES_NO_OPTION,
+	          JOptionPane.QUESTION_MESSAGE,
+	          null, options, options[0]);
+	    return escolha == 0;
+		
+	}
+	
+	private void limparTela() {
+		tf_nome.setText("");
+		tf_email.setText("");
+		tf_endereco.setText("");
+		tf_datanasc.setText("");
+		tf_ID.setText("");
+                tf_cpf.setText("");
+	}
+	
+	private void carregaAgenda() {
+		if(cursor >= lista.size()) limparTela();
+		else {
+			tf_nome.setText(lista.get(cursor).getNome());
+			tf_email.setText(lista.get(cursor).getEmail());
+			tf_endereco.setText(lista.get(cursor).getEndereco());
+			tf_datanasc.setText(lista.get(cursor).getDataNascimento());
+			tf_ID.setText("" + lista.get(cursor).getId());
+                        tf_cpf.setText("" + lista.get(cursor).getCPF());
+		}
+	}
+	
+	public void irParaID(Long id) {
+		for(int i=0; i<lista.size(); i++)
+			if(lista.get(i).getId() == id) {
+				cursor = i;
+				carregaAgenda();
+				break;
+			}
+	}
+}
