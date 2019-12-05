@@ -12,12 +12,6 @@ public class Produto {
         this.valor = valor;
         this.estoque= estoque;
     }
-    public Produto(int codigo,String descricao, float valor, float estoque) {
-        this.codigo = codigo;
-        this.descricao = descricao;
-        this.valor = valor;
-        this.estoque= estoque;
-    }
     public int getCodigo() {
         return codigo;
     }

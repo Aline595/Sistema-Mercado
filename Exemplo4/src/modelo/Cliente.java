@@ -12,7 +12,6 @@ public class Cliente extends Contato{
         this.CPF = CPF;
         compras = new ArrayList<Compra>();
     }
-   
     @Override
     public String toString() {
         return "Cliente{ id=" + id + ", nome=" + nome + ", email=" + email + ", endereco=" + endereco

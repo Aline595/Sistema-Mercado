@@ -139,12 +139,11 @@ public class CrudProduto extends JFrame implements ActionListener{
 		else if(e.getSource() == btnAtualizar)
 		{	if(janelaConfirmacao("Atualização")) {
 				dao.altera(new Produto(
-                                        //Integer.parseInt(tf_ID.getText()),
+                                        Integer.parseInt(tf_ID.getText()),
                                         tf_descricao.getText(), 
-						Float.parseFloat(tf_valor.getText()),
-                                                Float.parseFloat(tf_quantidade.getText())
-						
-                                                ));
+					Float.parseFloat(tf_valor.getText()),
+                                        Float.parseFloat(tf_quantidade.getText())
+					));
 			JOptionPane.showMessageDialog(null, "Inserido com sucesso!");
 				lista = (ArrayList<Produto>)dao.getListar();
 				carregaEstoque();

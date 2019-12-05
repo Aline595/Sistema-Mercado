@@ -1,15 +1,16 @@
 package teste;
 
 import dao.ClienteDAO;
+import dao.ContatoDAO;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.EventQueue;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import modelo.Cliente;
-//cliente tem cpf faz compras
-public class CrudCliente extends JFrame implements ActionListener {
+import modelo.Contato;
+//contato não tem cpf, não compra
+public class CrudContato extends JFrame implements ActionListener {
     private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField tf_nome;
@@ -17,18 +18,18 @@ public class CrudCliente extends JFrame implements ActionListener {
 	private JTextField tf_endereco;
 	private JTextField tf_datanasc;
 	private JTextField tf_ID;
-        private JTextField tf_cpf;
+        
 	private JButton btnInserir, btnLimpar,
 		btnVoltar, btnAvancar, btnAtualizar, btnRemover;
-	private ClienteDAO dao;
-	private List<Cliente> lista;
+	private ContatoDAO dao;
+	private List<Contato> lista;
 	private int cursor;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CrudCliente frame = new CrudCliente();
+					CrudContato frame = new CrudContato();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +41,7 @@ public class CrudCliente extends JFrame implements ActionListener {
 	/**
 	 * Criar o frame
 	 */
-	public CrudCliente() {
+	public CrudContato() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 490, 335);
 		contentPane = new JPanel();
@@ -63,11 +64,7 @@ public class CrudCliente extends JFrame implements ActionListener {
 		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setBounds(25, 150, 151, 14);
 		contentPane.add(lblDataDeNascimento);
-                
-                JLabel lblCPF = new JLabel("CPF:");
-		lblCPF.setBounds(25, 182, 180, 14);
-		contentPane.add(lblCPF);
-		
+               
 		tf_nome = new JTextField();
 		tf_nome.setBounds(184, 39, 240, 20);
 		contentPane.add(tf_nome);
@@ -88,11 +85,6 @@ public class CrudCliente extends JFrame implements ActionListener {
 		contentPane.add(tf_datanasc);
 		tf_datanasc.setColumns(10);
                 
-                tf_cpf = new JTextField();
-		tf_cpf.setBounds(184, 180, 240, 20);
-		contentPane.add(tf_cpf);
-		tf_cpf.setColumns(10);
-		
 		btnInserir = new JButton("Inserir");
 		btnInserir.setBounds(118, 210, 94, 25);
 		btnInserir.addActionListener(this);
@@ -134,9 +126,9 @@ public class CrudCliente extends JFrame implements ActionListener {
 		contentPane.add(tf_ID);
 		tf_ID.setColumns(10);
 		
-		dao = new ClienteDAO();
+		dao = new ContatoDAO();
 		
-		lista = (ArrayList<Cliente>)dao.getListar();
+		lista = (ArrayList<Contato>)dao.getListar();
 		cursor = 0;
 		carregaAgenda();
 	}
@@ -146,21 +138,21 @@ public class CrudCliente extends JFrame implements ActionListener {
 		{	limparTela();
 		}
 		else if(e.getSource() == btnInserir)
-		{	dao.adiciona(new Cliente(tf_nome.getText(),
+		{	dao.adiciona(new Contato(tf_nome.getText(),
 					tf_email.getText(), tf_endereco.getText(),
-					tf_datanasc.getText(), tf_cpf.getText() /*,-1L*/));
+					tf_datanasc.getText()/*, tf_cpf.getText(), -1L*/));
 			JOptionPane.showMessageDialog(null, "Inserido com sucesso!");
-			lista = (ArrayList<Cliente>)dao.getListar();
+			lista = (ArrayList<Contato>)dao.getListar();
 			cursor = lista.size()-1;
 			carregaAgenda();
 		}
 		else if(e.getSource() == btnAtualizar)
 		{	if(janelaConfirmacao("Atualização")) {
-				dao.altera(new Cliente(tf_nome.getText(),
+				dao.altera(new Contato(tf_nome.getText(),
 						tf_email.getText(), tf_endereco.getText(),
-						tf_datanasc.getText(), tf_cpf.getText() /*,Long.parseLong(tf_ID.getText())*/));
+						tf_datanasc.getText()));
 			JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-				lista = (ArrayList<Cliente>)dao.getListar();
+				lista = (ArrayList<Contato>)dao.getListar();
 				carregaAgenda();
 			}
 		}
@@ -175,7 +167,7 @@ public class CrudCliente extends JFrame implements ActionListener {
 		else if(e.getSource() == btnRemover)
 		{	if(janelaConfirmacao("Exclusão")) {
 				dao.remove(Integer.parseInt(tf_ID.getText()));
-				lista = (ArrayList<Cliente>)dao.getListar();
+				lista = (ArrayList<Contato>)dao.getListar();
 				if(cursor > 0) cursor--;
 				carregaAgenda();
 			}
@@ -200,7 +192,7 @@ public class CrudCliente extends JFrame implements ActionListener {
 		tf_endereco.setText("");
 		tf_datanasc.setText("");
 		tf_ID.setText("");
-                tf_cpf.setText("");
+                
 	}
 	
 	private void carregaAgenda() {
@@ -211,7 +203,7 @@ public class CrudCliente extends JFrame implements ActionListener {
 			tf_endereco.setText(lista.get(cursor).getEndereco());
 			tf_datanasc.setText(lista.get(cursor).getDataNascimento());
 			tf_ID.setText("" + lista.get(cursor).getId());
-                        tf_cpf.setText("" + lista.get(cursor).getCPF());
+                        
 		}
 	}
 	
