@@ -18,7 +18,7 @@ public class CrudProduto extends JFrame implements ActionListener{
 	private JTextField tf_quantidade;
 	private JTextField tf_ID;
 	private JButton btnInserir, btnLimpar,
-		btnVoltar, btnAvancar, btnAtualizar, btnRemover;
+		btnVoltar, btnAvancar, btnAtualizar, btnRemover, btnVoltarInicio;
 	private ProdutoDAO dao;
 	private List<Produto> lista;
 	private int cursor;
@@ -104,7 +104,12 @@ public class CrudProduto extends JFrame implements ActionListener{
 		btnRemover.setBounds(361, 190, 104, 25);
 		btnRemover.addActionListener(this);
 		contentPane.add(btnRemover);
-		
+                
+		btnVoltarInicio = new JButton("Tela inicial");
+		btnVoltarInicio.setBounds(361, 226, 104, 25);
+		btnVoltarInicio.addActionListener(this);
+		contentPane.add(btnVoltarInicio);
+                
 		JLabel lblId = new JLabel("Codigo:");
 		lblId.setBounds(31, 12, 69, 15);
 		contentPane.add(lblId);
@@ -164,6 +169,11 @@ public class CrudProduto extends JFrame implements ActionListener{
 				if(cursor > 0) cursor--;
 				carregaEstoque();
 			}
+		}
+                else if(e.getSource() == btnVoltarInicio)
+		{	
+                    new TelaInicial().setVisible(true);
+                    dispose();
 		}
 		
 	}

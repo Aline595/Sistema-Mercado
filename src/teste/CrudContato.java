@@ -20,7 +20,7 @@ public class CrudContato extends JFrame implements ActionListener {
 	private JTextField tf_ID;
         
 	private JButton btnInserir, btnLimpar,
-		btnVoltar, btnAvancar, btnAtualizar, btnRemover;
+		btnVoltar, btnAvancar, btnAtualizar, btnRemover, btnVoltarInicio;
 	private ContatoDAO dao;
 	private List<Contato> lista;
 	private int cursor;
@@ -115,6 +115,11 @@ public class CrudContato extends JFrame implements ActionListener {
 		btnRemover.setBounds(361, 210, 104, 25);
 		btnRemover.addActionListener(this);
 		contentPane.add(btnRemover);
+                
+                btnVoltarInicio = new JButton("Tela inicial");
+		btnVoltarInicio.setBounds(361, 246, 104, 25);
+		btnVoltarInicio.addActionListener(this);
+		contentPane.add(btnVoltarInicio);
 		
 		JLabel lblId = new JLabel("ID:");
 		lblId.setBounds(31, 12, 69, 15);
@@ -171,6 +176,11 @@ public class CrudContato extends JFrame implements ActionListener {
 				if(cursor > 0) cursor--;
 				carregaAgenda();
 			}
+		}
+                else if(e.getSource() == btnVoltarInicio)
+		{	
+                    new TelaInicial().setVisible(true);
+                    dispose();
 		}
 		
 	}

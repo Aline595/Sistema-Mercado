@@ -2,6 +2,7 @@ package teste;
 
 import dao.*;
 import java.util.*;
+import javax.swing.JButton;
 import modelo.*;
 
 /**
@@ -9,7 +10,7 @@ import modelo.*;
  * @author professor
  */
 public class ConsultaCompras extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form ConsultaCompras
      */
@@ -21,6 +22,7 @@ public class ConsultaCompras extends javax.swing.JFrame {
         for(Cliente item: clientes)
         {   jComboBox1.addItem(item.getId()+ " - " + item.getNome());
         }
+       
         
     }
 
@@ -108,7 +110,9 @@ public class ConsultaCompras extends javax.swing.JFrame {
             itensdao.lerItens(compras.get(apertei)); //lendo os itens comprados
             jTextArea1.setText(compras.get(apertei).toString());
         }
-    }                                           
+    }    
+    
+   
 
     /**
      * @param args the command line arguments
@@ -150,6 +154,7 @@ public class ConsultaCompras extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+   
     // End of variables declaration                   
     private List<Cliente> clientes;
     private List<Compra> compras;

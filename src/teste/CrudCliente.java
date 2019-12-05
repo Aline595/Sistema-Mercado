@@ -19,7 +19,7 @@ public class CrudCliente extends JFrame implements ActionListener {
 	private JTextField tf_ID;
         private JTextField tf_cpf;
 	private JButton btnInserir, btnLimpar,
-		btnVoltar, btnAvancar, btnAtualizar, btnRemover;
+		btnVoltar, btnAvancar, btnAtualizar, btnRemover, btnVoltarInicio;
 	private ClienteDAO dao;
 	private List<Cliente> lista;
 	private int cursor;
@@ -117,6 +117,11 @@ public class CrudCliente extends JFrame implements ActionListener {
 		btnAtualizar.setBounds(234, 210, 104, 25);
 		btnAtualizar.addActionListener(this);
 		contentPane.add(btnAtualizar);
+                
+                btnVoltarInicio = new JButton("Tela inicial");
+		btnVoltarInicio.setBounds(361, 246, 104, 25);
+		btnVoltarInicio.addActionListener(this);
+		contentPane.add(btnVoltarInicio);
 		
 		
 		btnRemover = new JButton("Remover");
@@ -179,6 +184,11 @@ public class CrudCliente extends JFrame implements ActionListener {
 				if(cursor > 0) cursor--;
 				carregaAgenda();
 			}
+		}
+                else if(e.getSource() == btnVoltarInicio)
+		{	
+                    new TelaInicial().setVisible(true);
+                    dispose();
 		}
 		
 	}
