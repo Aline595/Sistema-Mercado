@@ -5,10 +5,12 @@ import dao.ContatoDAO;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.*;
+import java.net.URL;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import modelo.Cliente;
 import modelo.Contato;
 //contato não tem cpf, não compra
 public class CrudContato extends JFrame implements ActionListener {
@@ -137,6 +139,9 @@ public class CrudContato extends JFrame implements ActionListener {
 		lista = (ArrayList<Contato>)dao.getListar();
 		cursor = 0;
 		carregaAgenda();
+                URL caminhoIcone = getClass().getResource("/imagem/user_edit.png");
+                Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIcone);
+                this.setIconImage(iconeTitulo);
 	}
 	
 	public void actionPerformed(ActionEvent e) {

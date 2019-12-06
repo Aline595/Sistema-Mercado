@@ -4,7 +4,10 @@ import dao.ClienteDAO;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.*;
+import java.net.URL;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import modelo.Cliente;
@@ -145,6 +148,9 @@ public class CrudCliente extends JFrame implements ActionListener {
         lista = (ArrayList<Cliente>) dao.getListar();
         cursor = 0;
         carregaAgenda();
+        URL caminhoIcone = getClass().getResource("/imagem/user_edit.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIcone);
+        this.setIconImage(iconeTitulo);
     }
 
     public void actionPerformed(ActionEvent e) {

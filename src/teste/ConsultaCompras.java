@@ -1,7 +1,10 @@
 package teste;
 import javax.swing.*;
 import dao.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.net.URL;
 import java.util.*;
 import javax.swing.JButton;
 import modelo.*;
@@ -17,7 +20,10 @@ public class ConsultaCompras extends javax.swing.JFrame {
      */
     public ConsultaCompras() {
         initComponents();
-        popularBD();
+        //popularBD();
+        URL caminhoIcone = getClass().getResource("/imagem/basket.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIcone);
+        this.setIconImage(iconeTitulo);
         
         ClienteDAO clidao = new ClienteDAO();
         clientes = clidao.getListar();
@@ -36,13 +42,20 @@ public class ConsultaCompras extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         btn_Voltar = new javax.swing.JButton("Tela Inicial");
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+       
+        jLabel1.setText("Escolha um cliente:");
+        
+        jLabel2.setText("Escolha uma compra:");
+        
+        btn_Voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/house.png")));
          btn_Voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 //ação
@@ -77,7 +90,7 @@ public class ConsultaCompras extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(btn_Voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(123, Short.MAX_VALUE))
@@ -168,6 +181,8 @@ public class ConsultaCompras extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton btn_Voltar; 
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
 
     
    
@@ -176,7 +191,7 @@ public class ConsultaCompras extends javax.swing.JFrame {
     private List<Compra> compras;
 
     private void popularBD()
-    {/*
+    {
         //Clientes
         ContatoDAO cdao = new ContatoDAO();
         cdao.adiciona(new Contato("Celso", "c@gmail.com", "Rua XYZ, 123", "01/01/2000"));
@@ -277,6 +292,6 @@ public class ConsultaCompras extends javax.swing.JFrame {
         compra4.setCodigo(id);
         //armazenando os itens comprados
         itensdao.gravaItens(compra4);
-    */
+    
     }
 }

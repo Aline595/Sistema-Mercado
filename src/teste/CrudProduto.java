@@ -8,6 +8,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import dao.ProdutoDAO;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import modelo.Produto;
 
 public class CrudProduto extends JFrame implements ActionListener{
@@ -125,6 +128,9 @@ public class CrudProduto extends JFrame implements ActionListener{
 		lista = (ArrayList<Produto>)dao.getListar();
 		cursor = 0;
 		carregaEstoque();
+                URL caminhoIcone = getClass().getResource("/imagem/basket_edit.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIcone);
+        this.setIconImage(iconeTitulo);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
