@@ -62,14 +62,14 @@ public class ProdutoDAO {
 	}
         
         public void altera(Produto produto) {
-		String sql = "update produtos set descricao=?, valor=?, quantidade=? " +
+		String sql = "update produtos set descricao=?, valor=?, estoque=? " +
 				"where codigo=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, produto.getDescricao());
-			stmt.setInt(2, (int) produto.getValor());
-			stmt.setInt(3, (int) produto.getEstoque());
-			stmt.setLong(4, produto.getCodigo());
+			stmt.setFloat(2, (float) produto.getValor());
+			stmt.setFloat(3, (float) produto.getEstoque());
+			stmt.setInt(4, (int) produto.getCodigo());
 			stmt.execute();
                         stmt.close();
 		} catch (SQLException e) {

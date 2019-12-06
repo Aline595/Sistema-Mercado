@@ -61,17 +61,17 @@ public class CrudProduto extends JFrame implements ActionListener{
 		contentPane.add(lblQuantidade);
 		
 		tf_descricao = new JTextField();
-		tf_descricao.setBounds(184, 39, 240, 20);
+		tf_descricao.setBounds(184, 39, 240, 28);
 		contentPane.add(tf_descricao);
 		tf_descricao.setColumns(10);
 		
 		tf_valor = new JTextField();
-		tf_valor.setBounds(184, 80, 240, 20);
+		tf_valor.setBounds(184, 80, 240, 28);
 		contentPane.add(tf_valor);
 		tf_valor.setColumns(10);
 		
 		tf_quantidade = new JTextField();
-		tf_quantidade.setBounds(184, 116, 240, 20);
+		tf_quantidade.setBounds(184, 116, 240, 28);
 		contentPane.add(tf_quantidade);
 		tf_quantidade.setColumns(10);
 		
@@ -116,7 +116,7 @@ public class CrudProduto extends JFrame implements ActionListener{
 		
 		tf_ID = new JTextField();
 		tf_ID.setEditable(false);
-		tf_ID.setBounds(76, 10, 114, 19);
+		tf_ID.setBounds(76, 10, 114, 27);
 		contentPane.add(tf_ID);
 		tf_ID.setColumns(10);
 		

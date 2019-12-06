@@ -8,6 +8,7 @@ import java.awt.EventQueue;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import modelo.Cliente;
 import modelo.Contato;
 //contato não tem cpf, não compra
 public class CrudContato extends JFrame implements ActionListener {
@@ -66,22 +67,22 @@ public class CrudContato extends JFrame implements ActionListener {
 		contentPane.add(lblDataDeNascimento);
                
 		tf_nome = new JTextField();
-		tf_nome.setBounds(184, 39, 240, 20);
+		tf_nome.setBounds(184, 39, 240, 28);
 		contentPane.add(tf_nome);
 		tf_nome.setColumns(10);
 		
 		tf_email = new JTextField();
-		tf_email.setBounds(184, 80, 240, 20);
+		tf_email.setBounds(184, 80, 240, 28);
 		contentPane.add(tf_email);
 		tf_email.setColumns(10);
 		
 		tf_endereco = new JTextField();
-		tf_endereco.setBounds(184, 116, 240, 20);
+		tf_endereco.setBounds(184, 116, 240, 28);
 		contentPane.add(tf_endereco);
 		tf_endereco.setColumns(10);
 		
 		tf_datanasc = new JTextField();
-		tf_datanasc.setBounds(184, 148, 240, 20);
+		tf_datanasc.setBounds(184, 148, 240, 28);
 		contentPane.add(tf_datanasc);
 		tf_datanasc.setColumns(10);
                 
@@ -127,7 +128,7 @@ public class CrudContato extends JFrame implements ActionListener {
 		
 		tf_ID = new JTextField();
 		tf_ID.setEditable(false);
-		tf_ID.setBounds(76, 10, 114, 19);
+		tf_ID.setBounds(76, 10, 114, 27);
 		contentPane.add(tf_ID);
 		tf_ID.setColumns(10);
 		
@@ -145,7 +146,7 @@ public class CrudContato extends JFrame implements ActionListener {
 		else if(e.getSource() == btnInserir)
 		{	dao.adiciona(new Contato(tf_nome.getText(),
 					tf_email.getText(), tf_endereco.getText(),
-					tf_datanasc.getText()/*, tf_cpf.getText(), -1L*/));
+					tf_datanasc.getText()));
 			JOptionPane.showMessageDialog(null, "Inserido com sucesso!");
 			lista = (ArrayList<Contato>)dao.getListar();
 			cursor = lista.size()-1;
@@ -153,12 +154,15 @@ public class CrudContato extends JFrame implements ActionListener {
 		}
 		else if(e.getSource() == btnAtualizar)
 		{	if(janelaConfirmacao("Atualização")) {
-				dao.altera(new Contato(tf_nome.getText(),
-						tf_email.getText(), tf_endereco.getText(),
-						tf_datanasc.getText()));
+                        Contato cl = lista.get(cursor);
+			cl.setDataNascimento(tf_datanasc.getText());
+                        cl.setEmail(tf_email.getText());
+                        cl.setEndereco(tf_endereco.getText());
+                        cl.setNome(tf_nome.getText());
+                        dao.altera(cl);
+                                					
 			JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-				lista = (ArrayList<Contato>)dao.getListar();
-				carregaAgenda();
+			carregaAgenda();
 			}
 		}
 		else if(e.getSource() == btnVoltar)
