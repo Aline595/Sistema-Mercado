@@ -11,7 +11,7 @@ import java.net.URL;
 
 /**
  *
- * @author Usuário
+ * @author Aline
  */
 public class TelaInicial extends javax.swing.JFrame {
 

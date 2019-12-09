@@ -11,7 +11,7 @@ import modelo.*;
 
 /**
  *
- * @author professor
+ * @author Aline
  */
 public class ConsultaCompras extends javax.swing.JFrame {
     
